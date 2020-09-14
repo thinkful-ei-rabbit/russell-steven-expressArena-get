@@ -89,11 +89,28 @@ app.get('/lotto', (req, res) => {
   if (numbers.length !== 6) {
     return res.status(400).send('We need 6 numbers');
   }
-  const realNumbers = parseInt(req.query.numbers);
-  //if (let real)
-  const winners = Math.random
-  const string = `We have these numbers: ${realNumbers}`;
-  res.send(string)
+  const guesses = numbers.map(n => parseInt(n));
+  const winners = [];
+  for (let i = 0; i <= 5; i++) {
+    min = Math.ceil(1);
+    max = Math.floor(20);
+    winners.push(Math.floor(Math.random() * (max - min) + min));
+  };
+  let diff = winners.filter(n => guesses.includes(n))
+  if(diff.length < 4) {
+    res.send(`We have these numbers: ${diff} and the winners are ${winners}, so, Sorry, you lose`)
+  };
+  if(diff.length = 4) {
+    res.send(`We have these numbers: ${diff} and the winners are ${winners}, so, Congratulations, you win a free ticket`)
+  };
+  if(diff.length = 5) {
+    res.send(`We have these numbers: ${diff} and the winners are ${winners}, so, Congratulations, you win $500`)
+  };
+  if(diff.length = 6) {
+    res.send(`We have these numbers: ${diff} and the winners are ${winners}, so, WOW, you win the LOTTO`)
+  };
+  //const string = `We have these numbers: ${diff}`;
+  //res.send(string);
   //res.send('We have 6 numbers');
 });
 
